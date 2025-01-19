@@ -26,5 +26,5 @@ Keyword Matching: Further enhance your search with keyword-level similarity matc
 DeepFashion dataset:  
 ~44,000 high-quality images in JPG/PNG format  
 Variety of fashion categories (tops, pants, dresses, etc.)  
-Dataset Link: Provide your direct link here  
+Dataset Link: [[link ](https://drive.google.com/drive/folders/125F48fsMBz2EF0Cpqk6aaHet5VH399Ok)](deepfashion_dataset2)  
 Additional Text Labels/Descriptions to simulate real user queries (e.g., color, pattern, style).  
