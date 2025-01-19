@@ -28,3 +28,4 @@ DeepFashion dataset:
 Variety of fashion categories (tops, pants, dresses, etc.)  
 Dataset Link: [[link ](https://drive.google.com/drive/folders/125F48fsMBz2EF0Cpqk6aaHet5VH399Ok)](deepfashion_dataset2)  
 Additional Text Labels/Descriptions to simulate real user queries (e.g., color, pattern, style).  
+Evaluation doc: [[link ](https://docs.google.com/forms/d/e/1FAIpQLSenbdz3Fg_p7ssT8ArugoBNaK9sFnyUaHR-yogiEnGCXBeSsQ/viewform?pli=1)](results) 
