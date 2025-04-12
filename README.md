@@ -1,31 +1,76 @@
-**Multimodal Recommendation System Using Image and Text Analysis for E-Commerce**
+# 👗 Multimodal Recommendation System Using Image and Text Analysis for E-Commerce
 
-Welcome to the Multimodal Recommendation System repository! This project combines image and text modalities to deliver robust product recommendations in the fashion e-commerce domain. The system leverages CLIP embeddings for both images and text, applies semantic segmentation, performs keyword extraction, and includes a reranking strategy to balance visual vs. textual cues.
+Welcome to the **Multimodal Recommendation System** — a smart fashion search tool that combines the powers of **image + text** to deliver **accurate, personalized product recommendations**.
 
-**Overview**
+Created by **Rahul Sharma** for research in AI-driven fashion applications.  
+Built using **CLIP**, **cosine similarity**, and **two-stage multimodal reranking**.
 
-Goal: Enhance user experience on fashion e-commerce platforms by allowing queries that involve both image uploads and text descriptions (e.g., “blue floral dress with sleeves”).
+---
 
-**Key Techniques:**
+## 🚀 Overview
 
-CLIP: Alignment of image and text in a single embedding space  
-Segmentation: Isolating clothing items to reduce background noise  
-Keyword Extraction & Cosine Similarity: Weighting user-provided keywords to refine search results  
-Two-Stage Retrieval & Reranking: Initial top-k retrieval followed by text-focused reranking  
+**Objective:**  
+Help users find clothing items that match both **visual style** and **textual preferences** (e.g. *“floral red dress with puffed sleeves”*).
 
-**Features**
+**Why It Matters:**  
+Traditional search lacks nuance — a shirt that *looks right* might not *feel right*. This system enables rich, multimodal search, improving customer satisfaction and boosting conversions in fashion e-commerce platforms.
 
-Multimodal Queries: Accept an image, text, or both.  
-Cosine Similarity Search: Quickly find the nearest items in embedding space.  
-Easy Customization: Adjust weighting parameters for image vs. text ( can use meta-learner to get tbe optimised weights)  
-Segmentation Integration: Use Mask R-CNN or another segmentation method to crop out irrelevant backgrounds.  
-Keyword Matching: Further enhance your search with keyword-level similarity matching.  
+---
 
-**Dataset**
+## 🧠 Core Techniques
 
-DeepFashion dataset:  
-~44,000 high-quality images in JPG/PNG format  
-Variety of fashion categories (tops, pants, dresses, etc.)  
-Dataset Link: [[link ](https://drive.google.com/drive/folders/125F48fsMBz2EF0Cpqk6aaHet5VH399Ok)](deepfashion_dataset2)  
-Additional Text Labels/Descriptions to simulate real user queries (e.g., color, pattern, style).  
-Evaluation doc: [[link ](https://docs.google.com/forms/d/e/1FAIpQLSenbdz3Fg_p7ssT8ArugoBNaK9sFnyUaHR-yogiEnGCXBeSsQ/viewform?pli=1)](results) 
+- **CLIP Model (by OpenAI)**: Encodes both images and text into a shared semantic space
+- **Unsupervised Retrieval Task**: No labels needed — everything is similarity-based
+- **Reranking Strategy**: Prioritizes textual cues post-retrieval for better match quality
+- **Optional Segmentation**: Use Mask R-CNN to crop clothing from backgrounds
+
+---
+
+## 🔍 Features
+
+| Feature | Description |
+|--------|-------------|
+| 🎨 Multimodal Input | Accepts image, text, or both |
+| 🧮 CLIP Embeddings | Transforms all inputs into vector space |
+| 🧠 Cosine Similarity Search | Retrieves nearest fashion items |
+| 🔁 Two-Stage Reranking | Ranks results by combining vision + language |
+| 🧩 Segmentation (optional) | Isolates garments to avoid background bias |
+
+---
+
+## 📊 Dataset: DeepFashion1
+
+- 📦 ~44,000 high-res fashion images
+- 📐 Image resolution: 512×1024 & 750×1101
+- 🏷️ Labels: Fabric, Texture (not used directly)
+- 🔗 [Dataset Link (Google Drive)](https://drive.google.com/drive/folders/125F48fsMBz2EF0Cpqk6aaHet5VH399Ok)
+
+---
+
+## ⚙️ Architecture
+
+![architecture](assets/architecture.png)
+
+---
+
+## 🧪 Evaluation
+
+Manual user survey via Google Form. Participants rated:
+- 🎯 Match Accuracy (style/pattern alignment)
+- 📈 Overall Satisfaction
+
+📄 [Evaluation Form (Google Docs)](https://docs.google.com/forms/d/e/1FAIpQLSenbdz3Fg_p7ssT8ArugoBNaK9sFnyUaHR-yogiEnGCXBeSsQ/viewform?pli=1)
+
+---
+
+## 📁 Example Usage
+
+```bash
+# Encode dataset
+python src/clip_retrieval.py --encode_dataset
+
+# Query with image only
+python src/inference.py --query_image data/sample_queries/user_query.jpg
+
+# Query with image + text
+python src/inference.py --query_image data/sample_queries/user_query.jpg --query_text "red floral dress with puffed sleeves"
