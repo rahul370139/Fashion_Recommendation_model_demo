@@ -9,9 +9,6 @@ A production‐ready multimodal recommendation engine for **fashion e-commerce**
 - **CLIP** for unified vision & language embeddings  
 - **FAISS** for lightning-fast vector search  
 
-Built by **Rahul Sharma**.  
-> _I’m actively seeking Summer 2025 ML / Data Science internships – feel free to reach out!_
-
 ---
 
 ## ✨ Features
