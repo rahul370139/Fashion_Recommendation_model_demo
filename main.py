@@ -1,8 +1,13 @@
 import argparse
-from src.retrieval import build_index, search
-from src.finetune import run_finetune
+import torch
+from src.mywardrobe import build_index, load_index, search, encode_query
+from src.mywardrobe.finetune import run_finetune
 
 def main():
+    # Print device information for debugging
+    device = torch.device("mps" if torch.backends.mps.is_available() else "cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Using device: {device}")
+    
     parser = argparse.ArgumentParser(description="Multimodal Fashion Retrieval CLI")
     sub = parser.add_subparsers(dest="cmd", required=True)
 
@@ -26,15 +31,24 @@ def main():
 
     args = parser.parse_args()
 
-    if args.cmd == "prep":
-        build_index(args.image_dir, args.mask_dir, args.out_emb, args.out_idx)
-    elif args.cmd == "query":
-        search(
-            args.query_image, args.query_text,
-            args.top_k, args.emb_file, args.idx_file
-        )
-    elif args.cmd == "finetune":
-        run_finetune()
+    try:
+        if args.cmd == "prep":
+            print(f"Building index from {args.image_dir} with masks from {args.mask_dir}")
+            build_index(args.image_dir, args.mask_dir, args.out_emb, args.out_idx)
+        elif args.cmd == "query":
+            print(f"Searching for similar images to {args.query_image}")
+            if args.query_text:
+                print(f"With text query: '{args.query_text}'")
+            search(
+                args.query_image, args.query_text,
+                args.top_k, args.emb_file, args.idx_file
+            )
+        elif args.cmd == "finetune":
+            run_finetune()
+    except Exception as e:
+        print(f"Error: {e}")
+        print("Make sure CLIP is installed: pip install openai-clip")
+        print("And other dependencies: pip install -r requirements.txt")
 
 if __name__ == "__main__":
     main()

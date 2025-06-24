@@ -1,0 +1,5 @@
+test_images/WOMEN-Tees_Tanks-id_00005085-31_4_full.jpg
+test_images/WOMEN-Blouses_Shirts-id_00002061-02_4_full.jpg
+test_images/WOMEN-Dresses-id_00007030-02_7_additional.png
+test_images/WOMEN-Dresses-id_00006201-04_7_additional.png
+test_images/WOMEN-Tees_Tanks-id_00006421-17_1_front.jpg
