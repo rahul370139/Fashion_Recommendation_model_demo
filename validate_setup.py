@@ -12,7 +12,7 @@ def check_config_file():
     print("🔍 Checking configuration file...")
     
     if not os.path.exists("config.py"):
-        print("❌ config.py not found. Please create it with your configuration.")
+        print("❌ config.py (env-based) not found. Please ensure it exists and loads from .env.")
         return False
     
     try:
@@ -168,7 +168,7 @@ def main():
     if passed == total:
         print("🎉 All checks passed! System is ready to use.")
         print("\n📋 Next steps:")
-        print("1. Update config.py with your Supabase credentials and GitHub repo")
+        print("1. Update .env with your Supabase credentials and GitHub repo")
         print("2. Run: python3 run_search.py prep --image_dir /path/to/images --mask_dir /path/to/masks")
         print("3. Run: python3 run_search.py query --query_image /path/to/image --top_k 10")
     else:

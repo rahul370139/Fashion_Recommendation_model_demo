@@ -54,11 +54,19 @@ Thumbs.db
 .coverage
 htmlcov/
 
-# Large data files (optional - uncomment if you don't want to track embeddings)
-# embeddings.npy
-# index_paths.txt
-# embeddings_mock.npy
-# index_paths_mock.txt
+# Large data and model files
+*.npy
+*.npz
+*.pkl
+*.h5
+*.pt
+*.ckpt
+
+# Ignore all .txt data files (except code/config)
+*.txt
+
+# If you want to track specific .txt files, add an exception below, e.g.:
+#!readme.txt
 
 # Logs
 *.log

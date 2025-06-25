@@ -1,7 +1,7 @@
 import sys
 import os
 
-# Add the parent directory to Python path to import config
+# Add the parent directory to Python path to import config (now env-based, loads from .env)
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 try:

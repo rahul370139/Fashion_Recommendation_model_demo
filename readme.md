@@ -61,20 +61,34 @@ chmod +x setup.sh
 ./setup.sh
 ```
 
-### 2-B. Test Installation
+### 2-B. Configuration
+
+1. Create a `.env` file in the project root with your secrets:
+   ```
+   SUPABASE_URL=https://your-project-id.supabase.co
+   SUPABASE_KEY=your-supabase-key-here
+   GITHUB_REPO_SLUG=rahul370139/Fashion_Recommendation_model_demo
+   # (Optional system config below)
+   CLIP_MODEL=ViT-B/32
+   DEVICE=auto
+   FAISS_INDEX_TYPE=IndexFlatIP
+   FAISS_DIMENSION=512
+   DEFAULT_TOP_K=10
+   DEFAULT_ALPHA=0.5
+   ```
+2. All configuration is loaded from `.env` via `config.py` (do not hardcode secrets).
+
+### 2-C. Test Installation
 
 ```bash
-# Test basic functionality
-python test_basic.py
+# Run the main validation script
+python validate_setup.py
 
 # Test CLIP with mock data
 python test_mock.py
-
-# Test with small dataset
-python test_small.py
 ```
 
-### 2-C. Build the Index
+### 2-D. Build the Index
 
 **Prerequisites:**
 - Raw images in `/data/images/` (or your image directory)
@@ -95,7 +109,7 @@ This runs `build_index()` which:
 - ℓ₂-normalizes each embedding
 - Writes the matrix + path list (≈ 43MB for 44k × 512-d vectors)
 
-### 2-D. Search and Query
+### 2-E. Search and Query
 
 ```bash
 # Text-only search
@@ -121,7 +135,7 @@ python main.py query \
   --idx_file index_paths.txt
 ```
 
-### 2-E. Run the Full Demo Stack
+### 2-F. Run the Full Demo Stack
 
 **Start the API:**
 ```bash
@@ -155,10 +169,10 @@ Then:
 - ✅ **Dependency Management**: Fixed NumPy version conflicts (1.26.4)
 - ✅ **OpenMP Compatibility**: Resolved FAISS runtime issues with `KMP_DUPLICATE_LIB_OK=TRUE`
 - ✅ **Automated Setup**: Created `setup.sh` for one-click environment setup
-- ✅ **Configuration System**: Centralized config with validation scripts
+- ✅ **Configuration System**: Centralized config with validation script
 
 ### Testing & Validation
-- ✅ **Comprehensive Tests**: Created test suite for all components
+- ✅ **Comprehensive Tests**: `test_mock.py` covers core logic
 - ✅ **Mock Data**: Built-in test data for development and validation
 - ✅ **Error Handling**: Robust error handling and debugging information
 
@@ -196,7 +210,7 @@ Then:
 | Package import path | ✅ **Good** | `pip install -e .` works |
 | Device fallback | ✅ **Good** | Auto-detects M-series / CUDA / CPU |
 | Index reuse | ✅ **Good** | `load_index()` cheap, API optimized |
-| Tests | ✅ **Good** | Comprehensive test suite |
+| Tests | ✅ **Good** | `test_mock.py` covers core logic |
 | Fine-tune script | 🔄 **Partial** | Basic scaffold ready, needs CLI args |
 
 ---
@@ -232,9 +246,6 @@ python -c "import torch; print('MPS:', torch.backends.mps.is_available()); print
 ```bash
 # Validate complete setup
 python validate_setup.py
-
-# Interactive configuration
-python setup_config.py
 ```
 
 ---
