@@ -1,7 +1,7 @@
 # 👗 MyWardrobe — AI-Powered Fashion Recommendation & Virtual Wardrobe
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.111-green)](https://fastapi.tiangolo.com/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) 
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.111-green)](https://fastapi.tiangolo.com/) 
 [![CLIP](https://img.shields.io/badge/CLIP-ViT--B%2F32-orange)](https://openai.com/research/clip)
 [![FAISS](https://img.shields.io/badge/FAISS-IndexFlatIP-red)](https://github.com/facebookresearch/faiss)
 [![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL%20%2B%20Storage-purple)](https://supabase.com/)

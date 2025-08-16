@@ -19,6 +19,8 @@ jobs:
       
       - name: Run Tests
         run: |
+          # Add backend-deploy to Python path for tests
+          export PYTHONPATH="${PYTHONPATH}:${GITHUB_WORKSPACE}/backend-deploy"
           pytest -q backend/development/tests/
       
       - name: Build Docker Image
@@ -27,10 +29,13 @@ jobs:
       
       - name: Test Backend API
         run: |
+          # Install additional dependencies for API testing
+          pip install requests
           # Start backend in background
           cd backend-deploy
+          export PYTHONPATH="${PYTHONPATH}:${GITHUB_WORKSPACE}/backend-deploy"
           python -m uvicorn api.app:app --host 0.0.0.0 --port 8000 &
-          sleep 10
+          sleep 15
           # Test if API is responding
           curl -f http://localhost:8000/docs || exit 1
       

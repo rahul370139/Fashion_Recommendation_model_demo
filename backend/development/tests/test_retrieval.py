@@ -1,7 +1,11 @@
 import os
 import io
+import sys
 import pytest
 from fastapi.testclient import TestClient
+
+# Add backend-deploy to Python path for imports
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'backend-deploy'))
 from api.app import app
 
 client = TestClient(app)
