@@ -30,3 +30,6 @@ python-multipart
 # LangChain for chat
 langchain-ollama
 langchain-core
+
+# Testing
+pytest>=7.0
