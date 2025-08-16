@@ -1,5 +1,9 @@
+# Build tools for CI/CD
+setuptools>=65.0
+wheel>=0.38.0
+
 # Core ML libraries with strict version control
-pyyaml==5.4.1
+pyyaml>=6.0,<7.0
 numpy==1.26.4
 torch==2.1.2
 torchvision
