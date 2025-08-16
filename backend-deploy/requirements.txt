@@ -1,0 +1,28 @@
+# Core ML libraries with strict version control
+pyyaml==5.4.1
+numpy==1.26.4
+torch==2.1.2
+torchvision
+transformers
+clip @ git+https://github.com/openai/CLIP.git
+
+# Image processing
+pillow
+
+# Search and utilities
+faiss-cpu==1.7.4
+tqdm
+
+# Web framework
+fastapi
+uvicorn
+
+# Database
+supabase
+
+# Form handling
+python-multipart
+
+# LangChain for chat
+langchain-ollama
+langchain-core

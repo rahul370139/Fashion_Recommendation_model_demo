@@ -67,6 +67,8 @@ htmlcov/
 
 # If you want to track specific .txt files, add an exception below, e.g.:
 #!readme.txt
+!requirements.txt
+!backend-deploy/requirements.txt
 
 # Logs
 *.log
