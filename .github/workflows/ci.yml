@@ -7,14 +7,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - run: |
-          pip install -r requirements.txt
-          pip install -e .
-          pytest -q
-      - name: Build Docker image
-        run: docker build -t mywardrobe:${{ github.sha }} -f infra/Dockerfile .
-  # Add a deploy job here to push to Render or Railway if tests pass 
+      
+      - name: Install Dependencies
+        run: |
+          pip install -r backend-deploy/requirements.txt
+          pip install -e backend-deploy/
+      
+      - name: Run Tests
+        run: |
+          pytest -q backend/development/tests/
+      
+      - name: Build Docker Image
+        run: |
+          docker build -t mywardrobe:${{ github.sha }} -f backend-deploy/Dockerfile backend-deploy/
+      
+      - name: Test Backend API
+        run: |
+          # Start backend in background
+          cd backend-deploy
+          python -m uvicorn api.app:app --host 0.0.0.0 --port 8000 &
+          sleep 10
+          # Test if API is responding
+          curl -f http://localhost:8000/docs || exit 1
+      
+      # Add a deploy job here to push to Railway if tests pass 
