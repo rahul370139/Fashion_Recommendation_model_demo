@@ -1,0 +1,51 @@
+import os
+import io
+import pytest
+from fastapi.testclient import TestClient
+from api.app import app
+
+client = TestClient(app)
+
+# Provide a sample image path for testing
+SAMPLE_IMAGE = "data/sample.jpg"
+
+@pytest.mark.skipif(not os.path.exists(SAMPLE_IMAGE), reason="Sample image not found")
+def test_search_endpoint():
+    with open(SAMPLE_IMAGE, "rb") as f:
+        response = client.post(
+            "/search",
+            files={"file": ("sample.jpg", f, "image/jpeg")},
+            data={"text": "green dress"}
+        )
+    assert response.status_code == 200
+    results = response.json()
+    assert isinstance(results, list)
+    assert len(results) == 12
+
+
+def test_chat_endpoint():
+    response = client.post(
+        "/chat",
+        data={"query": "What can I wear to brunch?"}
+    )
+    assert response.status_code == 200
+    reply = response.json().get("reply", "")
+    assert isinstance(reply, str)
+    assert len(reply) > 0
+
+
+def test_wardrobe_add_and_get():
+    # Add item
+    response = client.post(
+        "/wardrobe/add",
+        data={"user_id": "u1", "product_path": "img.jpg"}
+    )
+    assert response.status_code == 200
+    assert response.json().get("status") == "ok"
+
+    # Get wardrobe
+    response = client.get("/wardrobe/u1")
+    assert response.status_code == 200
+    items = response.json()
+    assert isinstance(items, list)
+    assert any(item["product_path"] == "img.jpg" for item in items) 
