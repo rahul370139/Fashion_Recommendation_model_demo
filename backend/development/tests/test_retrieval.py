@@ -2,10 +2,33 @@ import os
 import io
 import sys
 import pytest
+import numpy as np
 from fastapi.testclient import TestClient
 
 # Add backend-deploy to Python path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'backend-deploy'))
+
+# Create mock data immediately when module loads (for CI/CD)
+def create_mock_data():
+    """Create mock data for CI/CD environment"""
+    # Create mock data directory if it doesn't exist
+    os.makedirs("data", exist_ok=True)
+    
+    # Create a mock embeddings file if it doesn't exist
+    if not os.path.exists("data/embeddings.npy"):
+        # Create a small mock embeddings file
+        mock_embeddings = np.random.rand(10, 512).astype(np.float32)
+        np.save("data/embeddings.npy", mock_embeddings)
+    
+    # Create a mock paths file if it doesn't exist
+    if not os.path.exists("data/paths.txt"):
+        with open("data/paths.txt", "w") as f:
+            for i in range(10):
+                f.write(f"mock_image_{i}.jpg\n")
+
+# Create mock data immediately
+create_mock_data()
+
 from api.app import app
 
 client = TestClient(app)
@@ -26,25 +49,7 @@ def test_search_endpoint():
     assert isinstance(results, list)
     assert len(results) == 12
 
-# Mock data for CI/CD environment
-@pytest.fixture(autouse=True)
-def setup_test_environment():
-    """Setup test environment for CI/CD"""
-    # Create mock data directory if it doesn't exist
-    os.makedirs("data", exist_ok=True)
-    
-    # Create a mock embeddings file if it doesn't exist
-    if not os.path.exists("data/embeddings.npy"):
-        import numpy as np
-        # Create a small mock embeddings file
-        mock_embeddings = np.random.rand(10, 512).astype(np.float32)
-        np.save("data/embeddings.npy", mock_embeddings)
-    
-    # Create a mock paths file if it doesn't exist
-    if not os.path.exists("data/paths.txt"):
-        with open("data/paths.txt", "w") as f:
-            for i in range(10):
-                f.write(f"mock_image_{i}.jpg\n")
+
 
 
 def test_chat_endpoint():
