@@ -35,3 +35,4 @@ langchain-core
 pytest>=7.0
 fastapi[all]
 requests
+numpy>=1.26.0

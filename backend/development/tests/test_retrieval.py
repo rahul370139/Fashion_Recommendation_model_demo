@@ -26,6 +26,26 @@ def test_search_endpoint():
     assert isinstance(results, list)
     assert len(results) == 12
 
+# Mock data for CI/CD environment
+@pytest.fixture(autouse=True)
+def setup_test_environment():
+    """Setup test environment for CI/CD"""
+    # Create mock data directory if it doesn't exist
+    os.makedirs("data", exist_ok=True)
+    
+    # Create a mock embeddings file if it doesn't exist
+    if not os.path.exists("data/embeddings.npy"):
+        import numpy as np
+        # Create a small mock embeddings file
+        mock_embeddings = np.random.rand(10, 512).astype(np.float32)
+        np.save("data/embeddings.npy", mock_embeddings)
+    
+    # Create a mock paths file if it doesn't exist
+    if not os.path.exists("data/paths.txt"):
+        with open("data/paths.txt", "w") as f:
+            for i in range(10):
+                f.write(f"mock_image_{i}.jpg\n")
+
 
 def test_chat_endpoint():
     response = client.post(
