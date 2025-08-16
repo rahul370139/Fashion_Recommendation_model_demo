@@ -16,7 +16,6 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r backend-deploy/requirements.txt
-          pip install -e backend-deploy/
       
       - name: Run Tests
         run: |
